@@ -1,0 +1,7 @@
+.idea
+bin
+*.iml
+.project
+.DS_Store
+classes
+*.iq

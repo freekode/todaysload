@@ -1,0 +1,22 @@
+<strings>
+    <string id="AppName">Todays Load</string>
+
+	<string id="title1">Todays Load</string>
+	<string id="title2">Status</string>
+
+	<string id="ctl">CTL</string>
+    <string id="atl">ATL</string>
+    <string id="tscore">TScore</string>
+    <string id="tsb">TSB</string>
+    <string id="tsbr">TSB(r)</string>
+    <string id="restHr">RHR</string>
+
+    <string id="connectString1">Please connect your</string>
+    <string id="connectString2">phone and open the</string>
+    <string id="connectString3">Connect Mobile App</string>
+    
+    <string id="goToPhone">Open the</string>   
+    
+    <string id="loading"> Loading...</string>
+    <string id="error">Error: </string>
+</strings>
