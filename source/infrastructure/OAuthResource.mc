@@ -1,3 +1,5 @@
+using LogMonkey as Log;
+
 class OAuthResource {
     hidden var _complete;
     hidden var _onSuccess;
@@ -51,7 +53,7 @@ class OAuthResource {
         var token = data["access_token"];
         repo.save(token);
 
-        System.println("authenticated token = " + repo.get());
+        Log.Debug.logMessage("OAuthResource", "authenticated token = " + repo.get());
 
         _onSuccess.invoke();
 	}

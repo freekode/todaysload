@@ -1,4 +1,5 @@
 using Toybox.Application;
+using LogMonkey as Log;
 
 class DailyLoadRepository {
 	var _callback;
@@ -12,7 +13,7 @@ class DailyLoadRepository {
 
 	function onResourceReponse(dailyLoads) {
         save(dailyLoads);
-        System.println("dailyLoads saved = " + dailyLoads);
+        Log.Debug.logMessage("DailyLoadRepository", "dailyLoads saved = " + dailyLoads);
 
         _callback.invoke(get());
     }

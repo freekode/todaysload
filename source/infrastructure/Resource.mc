@@ -1,3 +1,5 @@
+using LogMonkey as Log;
+
 class Resource {
 	var _onSuccess;
 	var _onFail;
@@ -18,7 +20,7 @@ class Resource {
             :headers => getHeaders()
         };
 
-        System.println("resource url = " +  url);
+        Log.Debug.logMessage("Resource", "resource url = " +  url);
 
 		var responseCallback = method(:callback);
 
@@ -27,7 +29,7 @@ class Resource {
 
     function callback(responseCode, data) {
         if (responseCode != 200 && _onFail != null) {
-            System.println("ERROR [" + responseCode + "] " + data);
+            Log.Debug.logMessage("Resource", "ERROR [" + responseCode + "] " + data);
             _onFail.invoke(responseCode, data);
         } else {
             _onSuccess.invoke(responseCode, data);

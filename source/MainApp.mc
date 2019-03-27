@@ -1,4 +1,5 @@
 using Toybox.Application;
+using LogMonkey as Log;
 
 class MainApp extends Application.AppBase {
 
@@ -7,14 +8,14 @@ class MainApp extends Application.AppBase {
     }
 
     function onStart(state) {
-        System.println("started");
+        Log.Debug.logMessage("MainApp", "started");
     }
 
     function onStop(state) {
     }
 
     function getInitialView() {
-    	System.println("initial view");
+    	Log.Debug.logMessage("MainApp", "initial view");
 
     	var token = new TokenRepository().get();
 

@@ -36,6 +36,8 @@
         <iq:languages>
             <iq:language>eng</iq:language>
         </iq:languages>
-        <iq:barrels/>
+        <iq:barrels>
+            <iq:depends name="LogMonkey" version="0.0.1"/>
+        </iq:barrels>
     </iq:application>
 </iq:manifest>

@@ -3,6 +3,7 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
 using Toybox.Time;
+using LogMonkey as Log;
 
 class MainView extends WatchUi.View {
 
@@ -26,12 +27,12 @@ class MainView extends WatchUi.View {
     }
 
     function onRepositoryResponse(dailyLoads) {
-        System.println("repository responded = " + dailyLoads);
+        Log.Debug.logMessage("MainView", "repository responded = " + dailyLoads);
         setValues(dailyLoads[0]);
     }
 
     function setValues(status) {
-        System.println("setValues");
+        Log.Debug.logMessage("MainView", "setValues");
 
         var ctl = status._combinedCtl.toNumber().toString();
         var atl = status._combinedAtl.toNumber().toString();

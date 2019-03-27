@@ -2,6 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
+using LogMonkey as Log;
 
 class TodaysPlanStatusResource {
 	var _callback;
@@ -37,20 +38,20 @@ class TodaysPlanStatusResource {
 	}
 
 	function received(responseCode, data) {
-		System.println("data received");
+		Log.Debug.logMessage("TodaysPlanStatusResource", "data received");
 
 		var results = data["result"]["results"];
 
 		var converter = new DailyLoadDictConverter();
 		var statuses = converter.convertAll(results);
 
-		System.println("received daily loads = " + statuses.size());
+		Log.Debug.logMessage("TodaysPlanStatusResource", "received daily loads = " + statuses.size());
 
 		_callback.invoke(statuses);
 	}
 
 	function failed(responseCode, data) {
-		System.println("failed " + data);
+		Log.Debug.logMessage("TodaysPlanStatusResource", "failed " + data);
 	}
 
 	function getTime(date) {
