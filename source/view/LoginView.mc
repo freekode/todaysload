@@ -36,14 +36,14 @@ class LoginView extends WatchUi.View {
     }
 
     function onSuccess() {
-		WatchUi.switchToView(new MainView(), null, WatchUi.SLIDE_IMMEDIATE);
+		WatchUi.switchToView(new MainView(), new MainViewDelegate(), WatchUi.SLIDE_RIGHT);
     }
 
     function onFail() {
     }
 }
 
-class LoginDelegate extends WatchUi.BehaviorDelegate {
+class LoginViewDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
         BehaviorDelegate.initialize();
     }

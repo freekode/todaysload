@@ -59,3 +59,17 @@ class MainView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 }
+
+class MainViewDelegate extends WatchUi.BehaviorDelegate {
+    function initialize() {
+        BehaviorDelegate.initialize();
+    }
+
+    function onTap(event) {
+//        Log.Debug.logMessage("MainViewDelegate", WatchUi.loadResource(Rez.Strings.connectString1));
+
+        Log.Debug.logMessage("MainViewDelegate", "tap event");
+        WatchUi.switchToView(new GraphView(), new GraphViewDelegate(), WatchUi.SLIDE_RIGHT);
+        return true;
+    }
+}

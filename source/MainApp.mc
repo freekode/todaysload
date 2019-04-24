@@ -19,12 +19,13 @@ class MainApp extends Application.AppBase {
 
     	var token = new TokenRepository().get();
 
-		if (token != null) {
-            return [ new MainView() ];
-		} else if (!System.getDeviceSettings().phoneConnected) {
-            return [ new ConnectToGcmView() ];
-		} else {
-            return [ new LoginView(), new LoginDelegate() ];
-		}
+//		if (token != null) {
+//            return [ new MainView() ];
+//		} else if (!System.getDeviceSettings().phoneConnected) {
+//            return [ new ConnectToGcmView() ];
+//		} else {
+//            return [ new LoginView(), new LoginDelegate() ];
+//		}
+        return [ new GraphView() ];
     }
 }
