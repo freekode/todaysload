@@ -1,7 +1,7 @@
 <strings>
-    <string id="AppName">Todays Load</string>
+    <string id="AppName">Today\u0027s Load</string>
 
-	<string id="title">Todays Load</string>
+	<string id="title">Today\u0027s Load</string>
 
 	<string id="ctl">CTL</string>
     <string id="atl">ATL</string>
