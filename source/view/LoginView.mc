@@ -9,7 +9,27 @@ class LoginView extends WatchUi.View {
     }
 
     function onLayout(dc) {
-        setLayout(Rez.Layouts.LoginLayout(dc));
+        clear(dc);
+
+        var openPhoneMessage = WatchUi.loadResource(Rez.Strings.openPhone);
+
+        dc.drawText(120, 90,
+            Graphics.FONT_TINY,
+            openPhoneMessage,
+            Graphics.TEXT_JUSTIFY_CENTER);
+
+//        var writer = new WrapText();
+//        var posY = 50;
+//
+//        posY = writer.writeLines(dc, openPhoneMessage, Graphics.FONT_TINY, posY);
+    }
+
+    function onUpdate(dc) {
+    }
+
+    function clear(dc) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.clear();
     }
 
     function onShow() {

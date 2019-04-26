@@ -1,7 +1,7 @@
 using Toybox.WatchUi;
+using LogMonkey as Log;
 
 
-// View to handle showing the Connect to GCM message
 class ConnectToGcmView extends WatchUi.View {
 
     function initialize() {
@@ -9,7 +9,23 @@ class ConnectToGcmView extends WatchUi.View {
     }
 
     function onLayout(dc) {
-        setLayout(Rez.Layouts.Gcm(dc));
+        clear(dc);
+
+	    var phoneConnection = WatchUi.loadResource(Rez.Strings.phoneConnection);
+
+	    dc.drawText(
+            120,
+            90,
+            Graphics.FONT_TINY,
+            phoneConnection,
+            Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+    function onUpdate(dc) {
+    }
+
+    function clear(dc) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.clear();
+    }
 }

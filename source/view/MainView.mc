@@ -7,12 +7,18 @@ using LogMonkey as Log;
 
 class MainView extends WatchUi.View {
 
+	var mainViewGraphics;
+
+	var values = [];
+
     function initialize() {
         View.initialize();
+
+        mainViewGraphics = new MainViewGraphics();
     }
 
     function onLayout(dc) {
-        setLayout(Rez.Layouts.TodayStatus(dc));
+        mainViewGraphics.init(dc);
     }
 
     function onShow() {
@@ -20,7 +26,9 @@ class MainView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
-        View.onUpdate(dc);
+        if (values.size() > 0) {
+            mainViewGraphics.drawFieldValues(dc, values);
+        }
     }
 
     function onHide() {
@@ -41,19 +49,8 @@ class MainView extends WatchUi.View {
         var tsbr = status._combinedTsbr.toNumber().toString();
         var restHr = status._restHr.toNumber().toString();
 
-        configuraValue(ctl, "ctl");
-        configuraValue(atl, "atl");
-        configuraValue(tscore, "tscore");
-        configuraValue(tsb, "tsb");
-        configuraValue(tsbr, "tsbr");
-        configuraValue(restHr, "restHr");
+		values = [ctl, atl, tscore, tsb, tsbr, restHr];
 
         WatchUi.requestUpdate();
-    }
-
-    function configuraValue(value, id) {
-        var drawable = View.findDrawableById(id);
-        drawable.setText(value);
-        drawable.setLocation(drawable.locX + 10, drawable.locY);
     }
 }
