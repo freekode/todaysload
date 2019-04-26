@@ -6,11 +6,11 @@ using Toybox.Time;
 using LogMonkey as Log;
 
 class MainViewGraphics {
-	var yInit = 20;
-	var yFields = yInit + 40;
+	var yInit = 25;
+	var yFields = yInit + 35;
+    var yPadding = 25;
 	var xFieldNames = 115;
 	var xFieldValues = xFieldNames + 10;
-    var yPadding = 25;
     var xTitle;
 
     function init(dc) {
