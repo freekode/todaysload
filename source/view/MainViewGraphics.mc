@@ -11,12 +11,13 @@ class MainViewGraphics {
     var yPadding = 25;
 	var xFieldNames = 115;
 	var xFieldValues = xFieldNames + 10;
-    var xTitle;
+
+	var _dc;
 
     function init(dc) {
-        xTitle = dc.getWidth() / 2;
+        Log.Debug.logMessage("MainViewGraphics", "width = " + dc.getWidth() + "; height = " + dc.getHeight());
 
-        clear(dc);
+        UiTools.clear(dc);
 
 		drawTitle(dc);
 
@@ -25,8 +26,27 @@ class MainViewGraphics {
 		drawFieldValues(dc, ["...", "...", "...", "...", "...", "..."]);
     }
 
+    function showWarning(dc) {
+        _dc = dc;
+
+        dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
+        dc.fillRectangle(0, 0, 240, 20);
+
+        var timer = new Timer.Timer();
+        timer.start(method(:hideWarning), 2000, false);
+    }
+
+    function hideWarning() {
+        _dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        _dc.fillRectangle(0, 0, 240, 20);
+
+        WatchUi.requestUpdate();
+    }
+
     function drawTitle(dc) {
-        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_BLACK);
+        var xTitle = dc.getWidth() / 2;
+
+        dc.setColor(0xff5555, Graphics.COLOR_BLACK);
 		dc.drawText(xTitle, yInit,
             Graphics.FONT_MEDIUM,
             WatchUi.loadResource(Rez.Strings.title),
@@ -38,11 +58,10 @@ class MainViewGraphics {
     function drawFieldsNames(dc) {
         var justification = Graphics.TEXT_JUSTIFY_RIGHT;
         var font = Graphics.FONT_SMALL;
-        var amount = 6;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        return drawColumn(dc, xFieldNames, yFields, amount, justification, font, [
+        return UiTools.drawColumn(dc, xFieldNames, yFields, yPadding, justification, font, [
             WatchUi.loadResource(Rez.Strings.ctl), WatchUi.loadResource(Rez.Strings.atl),
             WatchUi.loadResource(Rez.Strings.tscore), WatchUi.loadResource(Rez.Strings.tsb),
             WatchUi.loadResource(Rez.Strings.tsbr), WatchUi.loadResource(Rez.Strings.restHr)
@@ -52,28 +71,9 @@ class MainViewGraphics {
     function drawFieldValues(dc, values) {
         var justification = Graphics.TEXT_JUSTIFY_LEFT;
         var font = Graphics.FONT_SMALL;
-        var amount = 6;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        return drawColumn(dc, xFieldValues, yFields, amount, justification, font, values);
-    }
-
-    function drawColumn(dc, x, y, amount, justification, font, values) {
-	    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-
-	    for(var i = 0; i < amount; i++) {
-	        dc.drawText(x, y, font, "       ", justification);
-	        dc.drawText(x, y, font, values[i], justification);
-
-            y += yPadding;
-        }
-
-        return y;
-	}
-
-    function clear(dc) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.clear();
+        return UiTools.drawColumn(dc, xFieldValues, yFields, yPadding, justification, font, values);
     }
 }

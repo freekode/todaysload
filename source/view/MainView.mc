@@ -3,6 +3,7 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
 using Toybox.Time;
+using Toybox.Attention;
 using LogMonkey as Log;
 
 class MainView extends WatchUi.View {
@@ -22,7 +23,7 @@ class MainView extends WatchUi.View {
     }
 
     function onShow() {
-        new DailyLoadRepository().request(method(:onRepositoryResponse));
+        new DailyLoadRepository().getToday(method(:onRepoSuccess), method(:onRepoFail));
     }
 
     function onUpdate(dc) {
@@ -34,8 +35,15 @@ class MainView extends WatchUi.View {
     function onHide() {
     }
 
-    function onRepositoryResponse(dailyLoads) {
+    function onRepoSuccess(dailyLoads) {
         Log.Debug.logMessage("MainView", "repository responded = " + dailyLoads);
+        setValues(dailyLoads[0]);
+    }
+
+    function onRepoFail(dailyLoads) {
+        Log.Debug.logMessage("MainView", "repository responded with error, loading old or default values");
+
+		vibrate();
         setValues(dailyLoads[0]);
     }
 
@@ -51,6 +59,21 @@ class MainView extends WatchUi.View {
 
 		values = [ctl, atl, tscore, tsb, tsbr, restHr];
 
+		backlight();
+
         WatchUi.requestUpdate();
+    }
+
+    function vibrate() {
+		if (Attention has :vibrate) {
+		    var vibeData = [new Attention.VibeProfile(50, 500)];
+			Attention.vibrate(vibeData);
+		}
+    }
+
+    function backlight() {
+	    if (Attention has :backlight) {
+	        Attention.backlight(true);
+	    }
     }
 }

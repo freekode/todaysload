@@ -1,25 +1,39 @@
 using Toybox.Application;
+using Toybox.Application.Storage as Storage;
 using LogMonkey as Log;
 
 class DailyLoadRepository {
-	var _callback;
+	var _onSuccess;
+    var _onFail;
 
-	function request(callback) {
-		_callback = callback;
+	function getToday(onSuccess, onFail) {
+		_onSuccess = onSuccess;
+		_onFail = onFail;
 
-		var resource = new TodaysPlanStatusResource(Time.today(), Time.today(), method(:onResourceReponse));
-        resource.get();
+		var resource = new TodaysPlanStatusResource(Time.today(), Time.today(), method(:successResponse), method(:failResponse));
+        resource.request();
 	}
 
-	function onResourceReponse(dailyLoads) {
+	function successResponse(dailyLoads) {
         save(dailyLoads);
         Log.Debug.logMessage("DailyLoadRepository", "dailyLoads saved = " + dailyLoads);
 
-        _callback.invoke(get());
+        _onSuccess.invoke(get());
+    }
+
+    function failResponse(data) {
+        Log.Debug.logMessage("DailyLoadRepository", "fail response " + data);
+		var dailyLoads = get();
+        if (dailyLoads.size == 0) {
+            dailyLoads = [DailyLoad.empty()];
+            save(dailyLoads);
+        }
+
+        _onFail.invoke(get());
     }
 
 	function get() {
-		var array = Application.getApp().getProperty($.PREFIX + "dailyLoads");
+		var array = Storage.getValue($.PREFIX + "dailyLoads");
 
         var dailyLoads = [];
         for(var i = 0; i < array.size(); i++) {
@@ -31,6 +45,11 @@ class DailyLoadRepository {
 	}
 
 	function save(array) {
-		Application.getApp().setProperty($.PREFIX + "dailyLoads", array);
+		var value = Storage.setValue($.PREFIX + "dailyLoads", array);
+		if (value == null) {
+			return [];
+		}
+
+		return value;
 	}
 }

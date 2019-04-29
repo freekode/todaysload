@@ -5,17 +5,19 @@ using Toybox.System;
 using LogMonkey as Log;
 
 class TodaysPlanStatusResource {
-	var _callback;
+	var _onSuccess;
+    var _onFail;
 	var _startDate;
 	var _endDate;
 
-	function initialize(startDate, endDate, callback) {
-		_callback = callback;
+	function initialize(startDate, endDate, onSuccess, onFail) {
+		_onSuccess = onSuccess;
+		_onFail = onFail;
 		_startDate = startDate;
 		_endDate = endDate;
 	}
 
-	function get() {
+	function request() {
 		var url = $.HOST + "rest/users/day/search/0/0000000000";
 		var parameters = {
 			"criteria" => {
@@ -34,10 +36,10 @@ class TodaysPlanStatusResource {
 			"opts" => 3
 		};
 
-		new Resource().send(url, "post", parameters, method(:received), method(:failed));
+		new Resource().send(url, "post", parameters, method(:success), method(:fail));
 	}
 
-	function received(responseCode, data) {
+	function success(responseCode, data) {
 		Log.Debug.logMessage("TodaysPlanStatusResource", "data received");
 
 		var results = data["result"]["results"];
@@ -47,11 +49,12 @@ class TodaysPlanStatusResource {
 
 		Log.Debug.logMessage("TodaysPlanStatusResource", "received daily loads = " + statuses.size());
 
-		_callback.invoke(statuses);
+		_onSuccess.invoke(statuses);
 	}
 
-	function failed(responseCode, data) {
+	function fail(responseCode, data) {
 		Log.Debug.logMessage("TodaysPlanStatusResource", "failed " + data);
+		_onFail.invoke(data);
 	}
 
 	function getTime(date) {

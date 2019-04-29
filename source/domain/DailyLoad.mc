@@ -15,11 +15,13 @@ class DailyLoad {
 		_year = dict["year"];
 		_restHr = dict["restHr"];
 
-		for(var i = 0; i < dict["sportsLoads"].size(); i++) {
-			var sportLoadDict = dict["sportsLoads"][i];
-			var sportLoad = new DailySportLoad(sportLoadDict);
+		if (dict["sportsLoads"] != null) {
+			for(var i = 0; i < dict["sportsLoads"].size(); i++) {
+				var sportLoadDict = dict["sportsLoads"][i];
+				var sportLoad = new DailySportLoad(sportLoadDict);
 
-            _sportsLoads.add(sportLoad);
+	            _sportsLoads.add(sportLoad);
+	        }
         }
 
         _combinedCtl = getCombinedCtl(_sportsLoads);
@@ -28,6 +30,11 @@ class DailyLoad {
         _combinedTsb = getCombinedTsb(_sportsLoads);
         _combinedTsbr = getCombinedTsbr(_combinedCtl, _combinedAtl);
 	}
+
+	function empty() {
+		return new DailyLoad({"day" => 0, "year" => 0, "restHr" => 0, "sportsLoads" => []});
+	}
+
 
 	function fromArray(array) {
 		var dailyLoads = [];

@@ -11,7 +11,7 @@ class OAuthResource {
         Communications.registerForOAuthMessages(method(:oAuthReceived));
     }
 
-    function send() {
+    function request() {
         Communications.makeOAuthRequest(
             $.HOST + "authorize/" + $.CLIENT_ID,
             {},
@@ -21,7 +21,6 @@ class OAuthResource {
     }
 
     function getAccessToken(code) {
-        // Make HTTPS POST request to request the access token
         Communications.makeWebRequest(
             $.HOST + "rest/oauth/access_token",
             {
@@ -43,19 +42,23 @@ class OAuthResource {
 
 	function oAuthReceived(data) {
 	    var code = data.data["code"];
-
 	    getAccessToken(code);
 	}
 
 	function tokenReceived(responseCode, data) {
-		var repo = new TokenRepository();
+		if (responseCode == 200) {
+			var repo = new TokenRepository();
 
-        var token = data["access_token"];
-        repo.save(token);
+            var token = data["access_token"];
+            repo.save(token);
 
-        Log.Debug.logMessage("OAuthResource", "authenticated token = " + repo.get());
+            Log.Debug.logMessage("OAuthResource", "authenticated token = " + repo.get());
 
-        _onSuccess.invoke();
+            _onSuccess.invoke();
+		} else {
+            Log.Debug.logMessage("OAuthResource", "authentication failed = " + responseCode + "; " + data);
+		}
+
 	}
 
 }

@@ -9,7 +9,7 @@ class ConnectToGcmView extends WatchUi.View {
     }
 
     function onLayout(dc) {
-        clear(dc);
+        UiTools.clear(dc);
 
 	    var phoneConnection = WatchUi.loadResource(Rez.Strings.phoneConnection);
 
@@ -22,10 +22,5 @@ class ConnectToGcmView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
-    }
-
-    function clear(dc) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.clear();
     }
 }
