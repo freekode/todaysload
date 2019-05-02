@@ -1,19 +1,28 @@
+using Toybox.WatchUi;
 using LogMonkey as Log;
 
 class OAuthResource {
     hidden var _complete;
     hidden var _onSuccess;
+    hidden var _clientId;
+    hidden var _clientSecret;
+    hidden var _hostname;
+
 
     function initialize(onSuccess) {
         _complete = false;
         _onSuccess = onSuccess;
+
+        _clientId = WatchUi.loadResource(Rez.JsonData.clientId);
+        _clientSecret = WatchUi.loadResource(Rez.JsonData.clientSecret);
+        _hostname = WatchUi.loadResource(Rez.JsonData.hostname);
 
         Communications.registerForOAuthMessages(method(:oAuthReceived));
     }
 
     function request() {
         Communications.makeOAuthRequest(
-            $.HOST + "authorize/" + $.CLIENT_ID,
+            _hostname + "authorize/" + _clientId,
             {},
             "https://localhost",
             Communications.OAUTH_RESULT_TYPE_URL,
@@ -22,11 +31,11 @@ class OAuthResource {
 
     function getAccessToken(code) {
         Communications.makeWebRequest(
-            $.HOST + "rest/oauth/access_token",
+            _hostname + "rest/oauth/access_token",
             {
                 "code"=>code,
-                "client_id"=>$.CLIENT_ID,
-                "client_secret"=>$.CLIENT_SECRET,
+                "client_id"=>_clientId,
+                "client_secret"=>_clientSecret,
                 "grant_type"=>"authorization_code",
                 "redirect_uri"=>"https://localhost"
             },

@@ -15,10 +15,13 @@ class TodaysPlanStatusResource {
 		_onFail = onFail;
 		_startDate = startDate;
 		_endDate = endDate;
+
 	}
 
 	function request() {
-		var url = $.HOST + "rest/users/day/search/0/0000000000";
+        var hostname = WatchUi.loadResource(Rez.JsonData.hostname);
+
+		var url = hostname + "rest/users/day/search/0/0000000000";
 		var parameters = {
 			"criteria" => {
 				"ranges" => [{

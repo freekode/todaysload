@@ -1,3 +1,4 @@
+using Toybox.WatchUi;
 using Toybox.Application;
 using Toybox.Application.Storage as Storage;
 using LogMonkey as Log;
@@ -33,7 +34,7 @@ class DailyLoadRepository {
     }
 
 	function get() {
-		var array = Storage.getValue($.PREFIX + "dailyLoads");
+		var array = Storage.getValue("dailyLoads");
 
         var dailyLoads = [];
         for(var i = 0; i < array.size(); i++) {
@@ -45,7 +46,7 @@ class DailyLoadRepository {
 	}
 
 	function save(array) {
-		var value = Storage.setValue($.PREFIX + "dailyLoads", array);
+		var value = Storage.setValue("dailyLoads", array);
 		if (value == null) {
 			return [];
 		}

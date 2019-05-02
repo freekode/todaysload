@@ -10,16 +10,13 @@ class MainView extends WatchUi.View {
 
 	var mainViewGraphics;
 
-	var values = [];
-
     function initialize() {
         View.initialize();
-
-        mainViewGraphics = new MainViewGraphics();
     }
 
     function onLayout(dc) {
-        mainViewGraphics.init(dc);
+        mainViewGraphics = new MainViewGraphics(dc);
+        mainViewGraphics.init();
     }
 
     function onShow() {
@@ -27,9 +24,6 @@ class MainView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
-        if (values.size() > 0) {
-            mainViewGraphics.drawFieldValues(dc, values);
-        }
     }
 
     function onHide() {
@@ -43,7 +37,7 @@ class MainView extends WatchUi.View {
     function onRepoFail(dailyLoads) {
         Log.Debug.logMessage("MainView", "repository responded with error, loading old or default values");
 
-		vibrate();
+		mainViewGraphics.vibrate();
         setValues(dailyLoads[0]);
     }
 
@@ -57,23 +51,11 @@ class MainView extends WatchUi.View {
         var tsbr = status._combinedTsbr.toNumber().toString();
         var restHr = status._restHr.toNumber().toString();
 
-		values = [ctl, atl, tscore, tsb, tsbr, restHr];
+		var values = [ctl, atl, tscore, tsb, tsbr, restHr];
 
-		backlight();
+		mainViewGraphics.drawFieldValues(values);
+        mainViewGraphics.backlight();
 
         WatchUi.requestUpdate();
-    }
-
-    function vibrate() {
-		if (Attention has :vibrate) {
-		    var vibeData = [new Attention.VibeProfile(50, 500)];
-			Attention.vibrate(vibeData);
-		}
-    }
-
-    function backlight() {
-	    if (Attention has :backlight) {
-	        Attention.backlight(true);
-	    }
     }
 }

@@ -14,23 +14,25 @@ class MainViewGraphics {
 
 	var _dc;
 
-    function init(dc) {
-        Log.Debug.logMessage("MainViewGraphics", "width = " + dc.getWidth() + "; height = " + dc.getHeight());
+	function initialize(dc) {
+		_dc = dc;
+	}
 
-        UiTools.clear(dc);
+    function init() {
+        Log.Debug.logMessage("MainViewGraphics", "width = " + _dc.getWidth() + "; height = " + _dc.getHeight());
 
-		drawTitle(dc);
+        UiTools.clear(_dc);
 
-		drawFieldsNames(dc);
+		drawTitle();
 
-		drawFieldValues(dc, ["...", "...", "...", "...", "...", "..."]);
+		drawFieldsNames();
+
+		drawFieldValues(["...", "...", "...", "...", "...", "..."]);
     }
 
-    function showWarning(dc) {
-        _dc = dc;
-
-        dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
-        dc.fillRectangle(0, 0, 240, 20);
+    function showWarning() {
+        _dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
+        _dc.fillRectangle(0, 0, 240, 20);
 
         var timer = new Timer.Timer();
         timer.start(method(:hideWarning), 2000, false);
@@ -43,11 +45,11 @@ class MainViewGraphics {
         WatchUi.requestUpdate();
     }
 
-    function drawTitle(dc) {
-        var xTitle = dc.getWidth() / 2;
+    function drawTitle() {
+        var xTitle = _dc.getWidth() / 2;
 
-        dc.setColor(0xff5555, Graphics.COLOR_BLACK);
-		dc.drawText(xTitle, yInit,
+        _dc.setColor(0xff5555, Graphics.COLOR_BLACK);
+		_dc.drawText(xTitle, yInit,
             Graphics.FONT_MEDIUM,
             WatchUi.loadResource(Rez.Strings.title),
             Graphics.TEXT_JUSTIFY_CENTER);
@@ -55,25 +57,38 @@ class MainViewGraphics {
         return yInit;
     }
 
-    function drawFieldsNames(dc) {
+    function drawFieldsNames() {
         var justification = Graphics.TEXT_JUSTIFY_RIGHT;
         var font = Graphics.FONT_SMALL;
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        _dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        return UiTools.drawColumn(dc, xFieldNames, yFields, yPadding, justification, font, [
+        return UiTools.drawColumn(_dc, xFieldNames, yFields, yPadding, justification, font, [
             WatchUi.loadResource(Rez.Strings.ctl), WatchUi.loadResource(Rez.Strings.atl),
             WatchUi.loadResource(Rez.Strings.tscore), WatchUi.loadResource(Rez.Strings.tsb),
             WatchUi.loadResource(Rez.Strings.tsbr), WatchUi.loadResource(Rez.Strings.restHr)
         ]);
     }
 
-    function drawFieldValues(dc, values) {
+    function drawFieldValues(values) {
         var justification = Graphics.TEXT_JUSTIFY_LEFT;
         var font = Graphics.FONT_SMALL;
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        _dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        return UiTools.drawColumn(dc, xFieldValues, yFields, yPadding, justification, font, values);
+        return UiTools.drawColumn(_dc, xFieldValues, yFields, yPadding, justification, font, values);
+    }
+
+    function vibrate() {
+        if (Attention has :vibrate) {
+            var vibeData = [new Attention.VibeProfile(50, 500)];
+            Attention.vibrate(vibeData);
+        }
+    }
+
+    function backlight() {
+        if (Attention has :backlight) {
+            Attention.backlight(true);
+        }
     }
 }

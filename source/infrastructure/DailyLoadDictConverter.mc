@@ -1,3 +1,5 @@
+using Toybox.WatchUi;
+
 class DailyLoadDictConverter {
 
 	function convertAll(results) {
@@ -52,14 +54,16 @@ class DailyLoadDictConverter {
 class DailySportLoadDictConverter {
 
 	function convertAll(load) {
+        var sportTypes = WatchUi.loadResource(Rez.JsonData.sportTypes);
+
 		var sportsLoads = [];
 
         if (load == null) {
             return sportsLoads;
         }
 
-        for(var i = 0; i < $.SPORT_TYPES.size(); i++) {
-            var sport = $.SPORT_TYPES[i];
+        for(var i = 0; i < sportTypes.size(); i++) {
+            var sport = sportTypes[i];
 
             var sportLoad = load[sport];
             if (sportLoad == null) {
