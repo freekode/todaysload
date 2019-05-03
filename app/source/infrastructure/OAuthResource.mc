@@ -8,7 +8,6 @@ class OAuthResource {
     hidden var _clientSecret;
     hidden var _hostname;
 
-
     function initialize(onSuccess) {
         _complete = false;
         _onSuccess = onSuccess;

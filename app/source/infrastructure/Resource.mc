@@ -1,8 +1,8 @@
 using LogMonkey as Log;
 
 class Resource {
-	var _onSuccess;
-	var _onFail;
+	hidden var _onSuccess;
+	hidden var _onFail;
 
 	function send(url, method, parameters, onSuccess, onFail) {
 		_onSuccess = onSuccess;
@@ -39,7 +39,7 @@ class Resource {
     function getHeaders() {
         return {
             "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
-            "Authorization" => "Bearer " + TokenRepository.get()
+            "Authorization" => "Bearer " + new TokenRepository().get()
         };
     }
 }

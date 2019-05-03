@@ -1,8 +1,7 @@
 <strings>
-    <string id="AppName">Today\u0027s Load</string>
-
 	<string id="title">Today\u0027s Load</string>
 
+	<string id="none">--none--</string>
 	<string id="ctl">CTL</string>
     <string id="atl">ATL</string>
     <string id="tscore">TScore</string>
@@ -13,6 +12,10 @@
 	<string id="phoneConnection">Phone Connection\nRequired</string>
 	<string id="openPhone">Open the\nConnect Mobile App</string>
 
-    <string id="loading"> Loading...</string>
-    <string id="error">Error: </string>
+	<string id="firstField">1st Field</string>
+	<string id="secondField">2nd Field</string>
+	<string id="thirdField">3rd Field</string>
+	<string id="fourthField">4th Field</string>
+	<string id="fifthField">5th Field</string>
+	<string id="sixthField">6th Field</string>
 </strings>

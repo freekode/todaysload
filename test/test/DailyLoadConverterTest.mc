@@ -46,7 +46,7 @@ const DAILY_LOAD_CONVERTER_TEST_DATA = {
 	}
 };
 
-const DAILY_LOAD_CONVERTER_TEST_DATA_SHORT = {
+const DAILY_LOAD_CONVERTER_TEST_DATA_EMPTY = {
 	"result" => {
 		"results" => [
 			{
@@ -64,27 +64,10 @@ const DAILY_LOAD_CONVERTER_TEST_DATA_SHORT = {
 };
 
 (:test)
-function dailySportLoadConverterTest(logger) {
-	var load = $.DAILY_LOAD_CONVERTER_TEST_DATA["result"]["results"][0]["load"];
-
-	var converter = new DailySportLoadDictConverter();
-    var sportsLoads = converter.convertAll(load);
-
-    logger.debug("sportsLoads = " + sportsLoads);
-
-    var sportLoad = sportsLoads[0];
-
-	Test.assert(sportLoad["sport"].equals("ride"));
-	Test.assert(sportLoad["ctl"].equals(35));
-
-	return true;
-}
-
-(:test)
-function dailyLoadConverterTest(logger) {
+function fieldsConverterTest(logger) {
     var results = $.DAILY_LOAD_CONVERTER_TEST_DATA["result"]["results"];
 
-    var converter = new DailyLoadDictConverter();
+    var converter = new FieldsConverter();
     var dailyLoads = converter.convertAll(results);
 
     logger.debug("dailyLoads = " + dailyLoads);
@@ -95,15 +78,15 @@ function dailyLoadConverterTest(logger) {
 }
 
 (:test)
-function dailyLoadConverterTestShort(logger) {
-    var results = $.DAILY_LOAD_CONVERTER_TEST_DATA_SHORT["result"]["results"];
+function fieldsConverterTestEmpty(logger) {
+    var results = $.DAILY_LOAD_CONVERTER_TEST_DATA_EMPTY["result"]["results"];
 
-    var converter = new DailyLoadDictConverter();
+    var converter = new FieldsConverter();
     var dailyLoads = converter.convertAll(results);
 
     logger.debug("dailyLoads = " + dailyLoads);
 
-	Test.assert(dailyLoads[0]["sportsLoads"].size() == 0);
+	Test.assert(dailyLoads.size() == 1);
 
     return true;
 }

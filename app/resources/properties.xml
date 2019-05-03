@@ -1,0 +1,84 @@
+<resources>
+	<properties>
+		<property id="firstField" type="number">1</property>
+		<property id="secondField" type="number">2</property>
+		<property id="thirdField" type="number">3</property>
+		<property id="fourthField" type="number">4</property>
+		<property id="fifthField" type="number">5</property>
+		<property id="sixthField" type="number">6</property>
+	</properties>
+
+	<settings>
+		<setting propertyKey="@Properties.firstField" title="@Strings.firstField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.secondField" title="@Strings.secondField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.thirdField" title="@Strings.thirdField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.fourthField" title="@Strings.fourthField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.fifthField" title="@Strings.fifthField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.sixthField" title="@Strings.sixthField">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.none</listEntry>
+				<listEntry value="1">@Strings.ctl</listEntry>
+				<listEntry value="2">@Strings.atl</listEntry>
+				<listEntry value="3">@Strings.tscore</listEntry>
+				<listEntry value="4">@Strings.tsb</listEntry>
+				<listEntry value="5">@Strings.tsbr</listEntry>
+				<listEntry value="6">@Strings.restHr</listEntry>
+			</settingConfig>
+		</setting>
+	</settings>
+</resources>

@@ -1,6 +1,0 @@
-<resources>
-	<jsonData id="clientId">"todaysload"</jsonData>
-	<jsonData id="clientSecret">"98388789-38c1-11e9-8dae-0a6d5206ef75"</jsonData>
-	<jsonData id="hostname">"https://whats.todaysplan.com.au/"</jsonData>
-	<jsonData id="sportTypes">["ride", "swim", "gym", "walk", "run"]</jsonData>
-</resources>

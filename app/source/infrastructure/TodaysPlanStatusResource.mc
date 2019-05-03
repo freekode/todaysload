@@ -5,20 +5,17 @@ using Toybox.System;
 using LogMonkey as Log;
 
 class TodaysPlanStatusResource {
-	var _onSuccess;
-    var _onFail;
-	var _startDate;
-	var _endDate;
+	hidden var _onSuccess;
+    hidden var _onFail;
+	hidden var _startDate;
+	hidden var _endDate;
 
-	function initialize(startDate, endDate, onSuccess, onFail) {
+	function request(startDate, endDate, onSuccess, onFail) {
 		_onSuccess = onSuccess;
-		_onFail = onFail;
-		_startDate = startDate;
-		_endDate = endDate;
+        _onFail = onFail;
+        _startDate = startDate;
+        _endDate = endDate;
 
-	}
-
-	function request() {
         var hostname = WatchUi.loadResource(Rez.JsonData.hostname);
 
 		var url = hostname + "rest/users/day/search/0/0000000000";
@@ -47,12 +44,12 @@ class TodaysPlanStatusResource {
 
 		var results = data["result"]["results"];
 
-		var converter = new DailyLoadDictConverter();
-		var statuses = converter.convertAll(results);
+		var dailyLoadConverter = new FieldsConverter();
+		var dailyLoads = dailyLoadConverter.convertAll(results);
 
-		Log.Debug.logMessage("TodaysPlanStatusResource", "received daily loads = " + statuses.size());
+		Log.Debug.logMessage("TodaysPlanStatusResource", "received daily loads = " + dailyLoads.size());
 
-		_onSuccess.invoke(statuses);
+		_onSuccess.invoke(dailyLoads);
 	}
 
 	function fail(responseCode, data) {

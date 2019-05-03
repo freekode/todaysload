@@ -1,19 +1,36 @@
 using Toybox.WatchUi;
 using Toybox.Application;
 using Toybox.Application.Storage as Storage;
+using Toybox.Time.Gregorian;
 using LogMonkey as Log;
 
 class DailyLoadRepository {
-	var _onSuccess;
-    var _onFail;
+	hidden var resource;
+
+	hidden var _onSuccess;
+    hidden var _onFail;
+
+    function initialize() {
+        resource = new TodaysPlanStatusResource();
+    }
 
 	function getToday(onSuccess, onFail) {
 		_onSuccess = onSuccess;
 		_onFail = onFail;
 
-		var resource = new TodaysPlanStatusResource(Time.today(), Time.today(), method(:successResponse), method(:failResponse));
-        resource.request();
+        resource.request(Time.today(), Time.today(), method(:successResponse), method(:failResponse));
 	}
+
+	function getLastFiveDays(onSuccess, onFail) {
+        _onSuccess = onSuccess;
+        _onFail = onFail;
+
+        var today = Time.today();
+        var fiveDays = new Time.Duration(Gregorian.SECONDS_PER_DAY * 2);
+        var fiveDaysAgo = today.subtract(fiveDays);
+
+        resource.request(fiveDaysAgo, today, method(:successResponse), method(:failResponse));
+    }
 
 	function successResponse(dailyLoads) {
         save(dailyLoads);
@@ -26,6 +43,8 @@ class DailyLoadRepository {
         Log.Debug.logMessage("DailyLoadRepository", "fail response " + data);
 		var dailyLoads = get();
         if (dailyLoads.size == 0) {
+	        Log.Debug.logMessage("DailyLoadRepository", "save empty");
+
             dailyLoads = [DailyLoad.empty()];
             save(dailyLoads);
         }

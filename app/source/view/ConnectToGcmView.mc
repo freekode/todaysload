@@ -14,8 +14,7 @@ class ConnectToGcmView extends WatchUi.View {
 	    var phoneConnection = WatchUi.loadResource(Rez.Strings.phoneConnection);
 
 	    dc.drawText(
-            120,
-            90,
+            120, 90,
             Graphics.FONT_TINY,
             phoneConnection,
             Graphics.TEXT_JUSTIFY_CENTER);
