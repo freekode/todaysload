@@ -40,14 +40,12 @@ class TodaysPlanStatusResource {
 	}
 
 	function success(responseCode, data) {
-		Log.Debug.logMessage("TodaysPlanStatusResource", "data received");
-
 		var results = data["result"]["results"];
 
-		var dailyLoadConverter = new FieldsConverter();
-		var dailyLoads = dailyLoadConverter.convertAll(results);
+		var fieldsConverter = new FieldsConverter();
+		var dailyLoads = fieldsConverter.convertAll(results);
 
-		Log.Debug.logMessage("TodaysPlanStatusResource", "received daily loads = " + dailyLoads.size());
+		Log.Debug.logMessage("TodaysPlanStatusResource", "converted daily loads = " + dailyLoads.size());
 
 		_onSuccess.invoke(dailyLoads);
 	}

@@ -17,11 +17,11 @@ class FieldsConverter {
 		var ctlField = new CtlField(result);
 		var tscoreField = new TscoreField(result);
 	    var restHrField = new RestHrField(result);
-	    var dayField = new DayField(result);
+	    var dateField = new DateField(result);
 	    var tsbField = new TsbField(ctlField, atlField);
 	    var tsbrField = new TsbrField(ctlField, atlField);
 
-		var fields = [atlField, ctlField, tscoreField, restHrField, dayField, tsbField, tsbrField];
+		var fields = [atlField, ctlField, tscoreField, restHrField, dateField, tsbField, tsbrField];
 
 		var dailyLoadFields = [];
         for(var i = 0; i < fields.size(); i++) {

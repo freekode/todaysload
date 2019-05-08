@@ -15,7 +15,8 @@
 			"3": "tscore",
 			"4": "tsb",
 			"5": "tsbr",
-			"6": "restHr"
+			"6": "restHr",
+			"7": "date"
 		}
 	</jsonData>
 	<jsonData id="fieldsTitles">
@@ -25,7 +26,8 @@
 			"tscore": "TScore",
 			"tsb": "TSB",
 			"tsbr": "TSB(r)",
-			"restHr": "RHR"
+			"restHr": "RHR",
+			"date": "Date"
 		}
 	</jsonData>
 </resources>

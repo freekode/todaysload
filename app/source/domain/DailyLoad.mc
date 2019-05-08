@@ -19,10 +19,11 @@ class DailyLoad {
 		return 0;
 	}
 
-	function getValues(keys) {
-		var values = [];
-		for(var i = 0; i < keys.size(); i++) {
-			values.add(getValue(keys[i]));
+    function getStringValues(keys) {
+        var values = [];
+        for(var i = 0; i < keys.size(); i++) {
+            var value = getValue(keys[i]);
+            values.add(value.toNumber().toString());
         }
 
         return values;

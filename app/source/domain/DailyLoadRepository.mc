@@ -15,21 +15,18 @@ class DailyLoadRepository {
     }
 
 	function getToday(onSuccess, onFail) {
-		_onSuccess = onSuccess;
-		_onFail = onFail;
-
-        resource.request(Time.today(), Time.today(), method(:successResponse), method(:failResponse));
+		getLastNDays(0, onSuccess, onFail);
 	}
 
-	function getLastFiveDays(onSuccess, onFail) {
-        _onSuccess = onSuccess;
-        _onFail = onFail;
+	function getLastNDays(nDays, onSuccess, onFail) {
+        self._onSuccess = onSuccess;
+        self._onFail = onFail;
 
         var today = Time.today();
-        var fiveDays = new Time.Duration(Gregorian.SECONDS_PER_DAY * 2);
-        var fiveDaysAgo = today.subtract(fiveDays);
+        var nDaysDuration = new Time.Duration(Gregorian.SECONDS_PER_DAY * nDays);
+        var nDaysAgo = today.subtract(nDaysDuration);
 
-        resource.request(fiveDaysAgo, today, method(:successResponse), method(:failResponse));
+        resource.request(nDaysAgo, today, method(:successResponse), method(:failResponse));
     }
 
 	function successResponse(dailyLoads) {

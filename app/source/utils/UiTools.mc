@@ -1,16 +1,19 @@
 using Toybox.WatchUi;
+using LogMonkey as Log;
 
 class UiTools {
-	hidden var _dc;
+	function drawColumn(dc, x, y, height, justification, font, values) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
-	function drawColumn(dc, x, y, paddingBottom, justification, font, values) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+		var fontHeight = dc.getFontHeight(font);
+
+		y += (height - (fontHeight * values.size())) / 2;
+		fontHeight -= 2;
 
         for(var i = 0; i < values.size(); i++) {
-            dc.drawText(x, y, font, "       ", justification);
             dc.drawText(x, y, font, values[i], justification);
 
-            y += paddingBottom;
+            y += fontHeight;
         }
 
         return y;
@@ -21,30 +24,37 @@ class UiTools {
         dc.clear();
     }
 
-    function mapToStrings(array) {
-        var mappedArray = [];
-        for(var i = 0; i < array.size(); i++) {
-            var value = array[i];
-            mappedArray.add(value.toNumber().toString());
+    function getArrayOfItems(item, times) {
+		var values = [];
+		for(var i = 0; i < times; i++) {
+		    values.add(item);
+		}
+
+		return values;
+	}
+
+    function drawWarning(dc) {
+        var rectangleHeight = 60;
+
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
+        dc.fillRectangle(0, 0, dc.getWidth(), rectangleHeight);
+
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_RED);
+
+        dc.drawText(dc.getWidth() / 2, rectangleHeight / 4,
+                    Graphics.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    function vibrate() {
+        if (Attention has :vibrate) {
+            var vibeData = [new Attention.VibeProfile(50, 250)];
+            Attention.vibrate(vibeData);
         }
-
-        return mappedArray;
     }
 
-    function showWarning(dc) {
-        _dc = dc;
-
-        _dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
-        _dc.fillRectangle(0, 0, 240, 20);
-
-        var timer = new Timer.Timer();
-        timer.start(method(:hideWarning), 2000, false);
-    }
-
-    function hideWarning() {
-        _dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-        _dc.fillRectangle(0, 0, 240, 20);
-
-        WatchUi.requestUpdate();
+    function backlight() {
+        if (Attention has :backlight) {
+            Attention.backlight(true);
+        }
     }
 }
