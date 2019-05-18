@@ -1,6 +1,5 @@
 using Toybox.Application;
 using Toybox.WatchUi;
-using LogMonkey as Log;
 
 class SettingsRepository {
 	hidden var app;

@@ -1,12 +1,11 @@
-using LogMonkey as Log;
 
 class Resource {
-	hidden var _onSuccess;
-	hidden var _onFail;
+	hidden var onSuccess;
+	hidden var onFail;
 
 	function send(url, method, parameters, onSuccess, onFail) {
-		_onSuccess = onSuccess;
-		_onFail = onFail;
+		self.onSuccess = onSuccess;
+		self.onFail = onFail;
 
         var requestMethod;
         if (method.equals("post")) {
@@ -20,19 +19,17 @@ class Resource {
             :headers => getHeaders()
         };
 
-        Log.Debug.logMessage("Resource", "resource url = " +  url);
+        Logger.log("Resource", "resource url = " +  url);
 
-		var responseCallback = method(:callback);
-
-        Communications.makeWebRequest(url, parameters, options, responseCallback);
+        Communications.makeWebRequest(url, parameters, options, method(:callback));
     }
 
     function callback(responseCode, data) {
-        if (responseCode != 200 && _onFail != null) {
-            Log.Debug.logMessage("Resource", "ERROR [" + responseCode + "] " + data);
-            _onFail.invoke(responseCode, data);
+        if (responseCode != 200 && onFail != null) {
+            Logger.log("Resource", "ERROR [" + responseCode + "] " + data);
+            onFail.invoke(responseCode, data);
         } else {
-            _onSuccess.invoke(responseCode, data);
+            onSuccess.invoke(responseCode, data);
         }
     }
 

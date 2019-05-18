@@ -1,6 +1,5 @@
 using Toybox.WatchUi;
 using Toybox.Time.Gregorian;
-using LogMonkey as Log;
 
 class DateField extends AbstractField {
 	hidden var fieldId = "date";

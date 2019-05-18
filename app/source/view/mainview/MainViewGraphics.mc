@@ -3,7 +3,6 @@ using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
 using Toybox.Time;
-using LogMonkey as Log;
 
 class MainViewGraphics {
 	hidden var yInit = 25;
@@ -12,23 +11,15 @@ class MainViewGraphics {
 	hidden var xFieldValues = xFieldNames + 10;
 	hidden var height = 180;
 
-	hidden var _dc;
+    function draw(dc, visibleWarning, fieldNames, values) {
+        UiTools.clear(dc);
 
-	function initialize(dc) {
-		_dc = dc;
+		drawFieldsNames(dc, fieldNames);
 
-        Log.Debug.logMessage("MainViewGraphics", "width = " + _dc.getWidth() + "; height = " + _dc.getHeight());
-	}
-
-    function draw(visibleWarning, fieldNames, values) {
-        UiTools.clear(_dc);
-
-		drawFieldsNames(_dc, fieldNames);
-
-		drawFieldValues(_dc, values);
+		drawFieldValues(dc, values);
 
 		if (visibleWarning) {
-	        UiTools.drawWarning(_dc);
+	        UiTools.drawWarning(dc);
 		}
     }
 

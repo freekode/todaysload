@@ -5,10 +5,8 @@ using Toybox.System;
 using Toybox.Time;
 using Toybox.Attention;
 using Toybox.Time.Gregorian;
-using LogMonkey as Log;
 
 class MainView extends WatchUi.View {
-	hidden var mainViewGraphics;
 	hidden var selectedFields;
 
 	hidden var fieldNames;
@@ -25,19 +23,16 @@ class MainView extends WatchUi.View {
 
         fieldNames = getFieldNames(selectedFields);
         fieldValues = UiTools.getArrayOfItems("...", selectedFields.size());
-
-        mainViewGraphics = new MainViewGraphics(dc);
     }
 
     function onShow() {
         var dailyLoadRepository = new DailyLoadRepository();
-        dailyLoadRepository.getLastNDays(1, method(:onRepoSuccess), method(:onRepoFail));
+        dailyLoadRepository.getLastNDays(0, method(:onRepoSuccess), method(:onRepoFail));
     }
 
     function onUpdate(dc) {
-        mainViewGraphics.draw(visibleWarning, fieldNames, fieldValues);
-
-        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
+        var mainViewGraphics = new MainViewGraphics();
+        mainViewGraphics.draw(dc, visibleWarning, fieldNames, fieldValues);
     }
 
     function onHide() {
@@ -48,7 +43,7 @@ class MainView extends WatchUi.View {
     }
 
     function onRepoFail(dailyLoads) {
-        Log.Debug.logMessage("MainView", "repository responded with error, loading old or default values");
+        Logger.log("MainView", "repository responded with error, loading old or default values");
 
 		UiTools.vibrate();
 

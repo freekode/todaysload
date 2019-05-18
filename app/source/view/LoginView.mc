@@ -1,12 +1,11 @@
 using Toybox.WatchUi;
-using LogMonkey as Log;
 
 class LoginView extends WatchUi.View {
-    hidden var _running;
+    hidden var running;
 
     function initialize() {
         View.initialize();
-        _running = false;
+        running = false;
     }
 
     function onLayout(dc) {
@@ -18,24 +17,20 @@ class LoginView extends WatchUi.View {
             Graphics.FONT_TINY,
             openPhoneMessage,
             Graphics.TEXT_JUSTIFY_CENTER);
-
-//        var writer = new WrapText();
-//        var posY = 50;
-//        posY = writer.writeLines(dc, openPhoneMessage, Graphics.FONT_TINY, posY);
     }
 
     function onUpdate(dc) {
     }
 
     function onShow() {
-        if(_running == false) {
-            var resource = new OAuthResource(method(:onSuccess));
+        if(running == false) {
+            var resource = new OAuthResource(method(:callback));
             resource.request();
-            _running = true;
+            running = true;
         }
     }
 
-    function onSuccess() {
+    function callback() {
 		WatchUi.switchToView(new MainView(), null, WatchUi.SLIDE_IMMEDIATE);
     }
 

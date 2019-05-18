@@ -1,4 +1,3 @@
-using LogMonkey as Log;
 
 class DailyLoad {
 	hidden var _fields = {};

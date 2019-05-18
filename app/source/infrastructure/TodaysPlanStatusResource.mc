@@ -2,19 +2,14 @@ using Toybox.WatchUi;
 using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
-using LogMonkey as Log;
 
 class TodaysPlanStatusResource {
-	hidden var _onSuccess;
-    hidden var _onFail;
-	hidden var _startDate;
-	hidden var _endDate;
+	hidden var onSuccess;
+    hidden var onFail;
 
 	function request(startDate, endDate, onSuccess, onFail) {
-		_onSuccess = onSuccess;
-        _onFail = onFail;
-        _startDate = startDate;
-        _endDate = endDate;
+		self.onSuccess = onSuccess;
+        self.onFail = onFail;
 
         var hostname = WatchUi.loadResource(Rez.JsonData.hostname);
 
@@ -22,8 +17,8 @@ class TodaysPlanStatusResource {
 		var parameters = {
 			"criteria" => {
 				"ranges" => [{
-					"floorTs" => getTime(_startDate),
-					"ceilTs" => getTime(_endDate)
+					"floorTs" => getTime(startDate),
+					"ceilTs" => getTime(endDate)
 				}]
 			},
 			"fields" => [
@@ -45,14 +40,14 @@ class TodaysPlanStatusResource {
 		var fieldsConverter = new FieldsConverter();
 		var dailyLoads = fieldsConverter.convertAll(results);
 
-		Log.Debug.logMessage("TodaysPlanStatusResource", "converted daily loads = " + dailyLoads.size());
+		Logger.log("TodaysPlanStatusResource", "converted daily loads = " + dailyLoads.size());
 
-		_onSuccess.invoke(dailyLoads);
+		onSuccess.invoke(dailyLoads);
 	}
 
 	function fail(responseCode, data) {
-		Log.Debug.logMessage("TodaysPlanStatusResource", "failed " + data);
-		_onFail.invoke(data);
+		Logger.log("TodaysPlanStatusResource", "failed " + data);
+		onFail.invoke(data);
 	}
 
 	function getTime(date) {

@@ -1,6 +1,4 @@
 using Toybox.WatchUi;
-using LogMonkey as Log;
-
 
 class ConnectToGcmView extends WatchUi.View {
 

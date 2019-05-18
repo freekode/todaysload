@@ -1,5 +1,4 @@
 using Toybox.WatchUi;
-using LogMonkey as Log;
 
 class UiTools {
 	function drawColumn(dc, x, y, height, justification, font, values) {
@@ -39,7 +38,7 @@ class UiTools {
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
         dc.fillRectangle(0, 0, dc.getWidth(), rectangleHeight);
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_RED);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
         dc.drawText(dc.getWidth() / 2, rectangleHeight / 4,
                     Graphics.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);

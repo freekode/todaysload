@@ -1,27 +1,24 @@
 using Toybox.WatchUi;
-using LogMonkey as Log;
 
 class OAuthResource {
-    hidden var _complete;
-    hidden var _onSuccess;
-    hidden var _clientId;
-    hidden var _clientSecret;
-    hidden var _hostname;
+    hidden var onSuccess;
+    hidden var clientId;
+    hidden var clientSecret;
+    hidden var hostname;
 
     function initialize(onSuccess) {
-        _complete = false;
-        _onSuccess = onSuccess;
+        self.onSuccess = onSuccess;
 
-        _clientId = WatchUi.loadResource(Rez.JsonData.clientId);
-        _clientSecret = WatchUi.loadResource(Rez.JsonData.clientSecret);
-        _hostname = WatchUi.loadResource(Rez.JsonData.hostname);
+        clientId = WatchUi.loadResource(Rez.JsonData.clientId);
+        clientSecret = WatchUi.loadResource(Rez.JsonData.clientSecret);
+        hostname = WatchUi.loadResource(Rez.JsonData.hostname);
 
-        Communications.registerForOAuthMessages(method(:oAuthReceived));
+        Communications.registerForOAuthMessages(method(:callback));
     }
 
     function request() {
         Communications.makeOAuthRequest(
-            _hostname + "authorize/" + _clientId,
+            hostname + "authorize/" + clientId,
             {},
             "https://localhost",
             Communications.OAUTH_RESULT_TYPE_URL,
@@ -30,11 +27,11 @@ class OAuthResource {
 
     function getAccessToken(code) {
         Communications.makeWebRequest(
-            _hostname + "rest/oauth/access_token",
+            hostname + "rest/oauth/access_token",
             {
-                "code"=>code,
-                "client_id"=>_clientId,
-                "client_secret"=>_clientSecret,
+                "code" => code,
+                "client_id" => clientId,
+                "client_secret" => clientSecret,
                 "grant_type"=>"authorization_code",
                 "redirect_uri"=>"https://localhost"
             },
@@ -48,25 +45,23 @@ class OAuthResource {
         );
     }
 
-	function oAuthReceived(data) {
+	function callback(data) {
 	    var code = data.data["code"];
 	    getAccessToken(code);
 	}
 
 	function tokenReceived(responseCode, data) {
 		if (responseCode == 200) {
-			var repo = new TokenRepository();
-
             var token = data["access_token"];
+
+			var repo = new TokenRepository();
             repo.save(token);
 
-            Log.Debug.logMessage("OAuthResource", "authenticated token = " + repo.get());
+            Logger.log("OAuthResource", "authenticated token = " + repo.get());
 
-            _onSuccess.invoke();
+            onSuccess.invoke();
 		} else {
-            Log.Debug.logMessage("OAuthResource", "authentication failed = " + responseCode + "; " + data);
+            Logger.log("OAuthResource", "authentication failed = " + responseCode + "; " + data);
 		}
-
 	}
-
 }
