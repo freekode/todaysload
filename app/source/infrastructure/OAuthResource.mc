@@ -1,22 +1,20 @@
-using Toybox.WatchUi;
-
 class OAuthResource {
     hidden var onSuccess;
     hidden var clientId;
     hidden var clientSecret;
     hidden var hostname;
 
-    function initialize(onSuccess) {
-        self.onSuccess = onSuccess;
-
-        clientId = WatchUi.loadResource(Rez.JsonData.clientId);
-        clientSecret = WatchUi.loadResource(Rez.JsonData.clientSecret);
-        hostname = WatchUi.loadResource(Rez.JsonData.hostname);
+    function initialize(clientId, clientSecret, hostname) {
+        self.clientId = clientId;
+        self.clientSecret = clientSecret;
+        self.hostname = hostname;
 
         Communications.registerForOAuthMessages(method(:callback));
     }
 
-    function request() {
+    function request(onSuccess) {
+        self.onSuccess = onSuccess;
+
         Communications.makeOAuthRequest(
             hostname + "authorize/" + clientId,
             {},
@@ -51,17 +49,20 @@ class OAuthResource {
 	}
 
 	function tokenReceived(responseCode, data) {
-		if (responseCode == 200) {
-            var token = data["access_token"];
+		if (responseCode != 200) {
+            Logger.log("OAuthResource", "authentication failed = " + responseCode);
+	        onSuccess = null;
+            return;
+        }
 
-			var repo = new TokenRepository();
-            repo.save(token);
+        var token = data["access_token"];
 
-            Logger.log("OAuthResource", "authenticated token = " + repo.get());
+		var repo = new TokenRepository();
+        repo.save(token);
 
-            onSuccess.invoke();
-		} else {
-            Logger.log("OAuthResource", "authentication failed = " + responseCode + "; " + data);
-		}
+        Logger.log("OAuthResource", "authenticated token = " + repo.get());
+
+        onSuccess.invoke();
+        onSuccess = null;
 	}
 }

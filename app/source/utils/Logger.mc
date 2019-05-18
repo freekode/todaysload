@@ -1,7 +1,6 @@
-using Toybox.WatchUi;
 using Toybox.System;
 
-(:debug)
+(:debug:background)
 class Logger {
     function log(source, message) {
         var fullMessage = "[" + Logger.getTimeMessage() + "] [" + source + "] " + message;
@@ -17,7 +16,7 @@ class Logger {
     }
 }
 
-(:release)
+(:release:background)
 class Logger {
     function log(source, message) {
     }

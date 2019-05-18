@@ -1,5 +1,6 @@
-using Toybox.WatchUi;
+using Toybox.Time.Gregorian;
 
+(:background)
 class UiTools {
 	function drawColumn(dc, x, y, height, justification, font, values) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -55,5 +56,35 @@ class UiTools {
         if (Attention has :backlight) {
             Attention.backlight(true);
         }
+    }
+
+    function substractFromDate(date, nDays) {
+        var nDaysDuration = new Time.Duration(Gregorian.SECONDS_PER_DAY * nDays);
+        return date.subtract(nDaysDuration);
+    }
+
+    function addToDate(date, nDays) {
+        var nDaysDuration = new Time.Duration(Gregorian.SECONDS_PER_DAY * nDays);
+        return date.add(nDaysDuration);
+    }
+
+    function getFirstJanuary(year) {
+         return Gregorian.moment({
+            :year => year,
+            :month => 1,
+            :day => 1,
+            :hour => 0,
+            :minute => 0,
+            :second => 0
+        });
+    }
+
+    function formatDate(date) {
+        var dateInfo = Gregorian.info(date, Time.FORMAT_SHORT);
+        return Lang.format("$1$/$2$/$3$", [
+            dateInfo.day,
+            dateInfo.month,
+            dateInfo.year
+        ]);
     }
 }

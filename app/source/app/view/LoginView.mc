@@ -24,17 +24,16 @@ class LoginView extends WatchUi.View {
 
     function onShow() {
         if(running == false) {
-            var resource = new OAuthResource(method(:callback));
-            resource.request();
+            var settings = new Settings();
+            var resource = new OAuthResource(settings.CLIENT_ID, settings.CLIENT_SECRET, settings.HOSTNAME);
+
+            resource.request(method(:callback));
             running = true;
         }
     }
 
     function callback() {
 		WatchUi.switchToView(new MainView(), null, WatchUi.SLIDE_IMMEDIATE);
-    }
-
-    function onFail() {
     }
 }
 

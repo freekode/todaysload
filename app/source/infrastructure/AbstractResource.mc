@@ -1,12 +1,6 @@
-
-class Resource {
-	hidden var onSuccess;
-	hidden var onFail;
-
-	function send(url, method, parameters, onSuccess, onFail) {
-		self.onSuccess = onSuccess;
-		self.onFail = onFail;
-
+(:background)
+class AbstractResource {
+	function send(url, method, parameters) {
         var requestMethod;
         if (method.equals("post")) {
             requestMethod = Communications.HTTP_REQUEST_METHOD_POST;
@@ -25,12 +19,18 @@ class Resource {
     }
 
     function callback(responseCode, data) {
-        if (responseCode != 200 && onFail != null) {
+        if (responseCode != 200) {
             Logger.log("Resource", "ERROR [" + responseCode + "] " + data);
-            onFail.invoke(responseCode, data);
+            fail(responseCode, data);
         } else {
-            onSuccess.invoke(responseCode, data);
+            success(responseCode, data);
         }
+    }
+
+    function success(responseCode, data) {
+    }
+
+    function fail(responseCode, data) {
     }
 
     function getHeaders() {

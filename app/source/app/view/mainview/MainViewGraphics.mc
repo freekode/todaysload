@@ -1,4 +1,3 @@
-using Toybox.WatchUi;
 using Toybox.Communications;
 using Toybox.Application;
 using Toybox.System;
@@ -20,7 +19,10 @@ class MainViewGraphics {
 
 		if (visibleWarning) {
 	        UiTools.drawWarning(dc);
+	        UiTools.vibrate();
 		}
+
+        UiTools.backlight();
     }
 
     hidden function drawFieldsNames(dc, names) {

@@ -1,13 +1,13 @@
 using Toybox.Application;
-using Toybox.WatchUi;
 
 class SettingsRepository {
 	hidden var app;
 	hidden var fieldsMap;
 
-	function initialize() {
+	function initialize(fieldsMap) {
+        self.fieldsMap = fieldsMap;
+
 		app = Application.getApp();
-        fieldsMap = WatchUi.loadResource(Rez.JsonData.fieldsMap);
 	}
 
 	function getSelectedFields() {

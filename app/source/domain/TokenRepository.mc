@@ -1,5 +1,6 @@
 using Toybox.Application;
 
+(:background)
 class TokenRepository {
 	hidden var app;
 

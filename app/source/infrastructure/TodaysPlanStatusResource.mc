@@ -1,19 +1,20 @@
-using Toybox.WatchUi;
 using Toybox.Communications;
-using Toybox.Application;
-using Toybox.System;
 
-class TodaysPlanStatusResource {
+(:background)
+class TodaysPlanStatusResource extends AbstractResource {
 	hidden var onSuccess;
     hidden var onFail;
+    hidden var settings;
+
+    function initialize(settings) {
+        self.settings = settings;
+    }
 
 	function request(startDate, endDate, onSuccess, onFail) {
 		self.onSuccess = onSuccess;
         self.onFail = onFail;
 
-        var hostname = WatchUi.loadResource(Rez.JsonData.hostname);
-
-		var url = hostname + "rest/users/day/search/0/0000000000";
+		var url = settings.HOSTNAME + "rest/users/day/search/0/0000000000";
 		var parameters = {
 			"criteria" => {
 				"ranges" => [{
@@ -31,23 +32,25 @@ class TodaysPlanStatusResource {
 			"opts" => 3
 		};
 
-		new Resource().send(url, "post", parameters, method(:success), method(:fail));
+		send(url, "post", parameters);
 	}
 
 	function success(responseCode, data) {
-		var results = data["result"]["results"];
+		var jsonArray = data["result"]["results"];
 
-		var fieldsConverter = new FieldsConverter();
-		var dailyLoads = fieldsConverter.convertAll(results);
+		var fieldsConverter = new FieldsConverter(settings.SPORT_TYPES);
+		var dailyLoads = fieldsConverter.convertAll(jsonArray);
 
 		Logger.log("TodaysPlanStatusResource", "converted daily loads = " + dailyLoads.size());
 
 		onSuccess.invoke(dailyLoads);
+		onSuccess = null;
 	}
 
 	function fail(responseCode, data) {
 		Logger.log("TodaysPlanStatusResource", "failed " + data);
 		onFail.invoke(data);
+		onFail = null;
 	}
 
 	function getTime(date) {

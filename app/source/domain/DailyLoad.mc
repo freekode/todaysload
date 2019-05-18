@@ -1,4 +1,3 @@
-
 class DailyLoad {
 	hidden var _fields = {};
 
@@ -27,8 +26,4 @@ class DailyLoad {
 
         return values;
     }
-
-	function empty() {
-		return new DailyLoad([]);
-	}
 }
