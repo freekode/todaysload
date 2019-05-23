@@ -27,8 +27,7 @@ class TodaysPlanStatusResource {
 				"load.gym.tscore.ctl","load.gym.tscore.atl","load.gym.tscore.mask","load.gym.tscore.value",
 				"load.walk.tscore.ctl","load.walk.tscore.atl","load.walk.tscore.mask","load.walk.tscore.value",
 				"load.run.tscore.ctl","load.run.tscore.atl","load.run.tscore.mask","load.run.tscore.value",
-				"restingBpm"],
-			"opts" => 3
+				"restingBpm", "weight"]
 		};
 
 		new Resource().send(url, "post", parameters, method(:success), method(:fail));

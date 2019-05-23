@@ -18,6 +18,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -30,6 +32,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -42,6 +46,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -54,6 +60,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -66,6 +74,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -78,6 +88,8 @@
 				<listEntry value="4">@Strings.tsb</listEntry>
 				<listEntry value="5">@Strings.tsbr</listEntry>
 				<listEntry value="6">@Strings.restHr</listEntry>
+				<listEntry value="7">@Strings.date</listEntry>
+				<listEntry value="8">@Strings.weight</listEntry>
 			</settingConfig>
 		</setting>
 	</settings>

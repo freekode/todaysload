@@ -9,6 +9,7 @@
     <string id="tsbr">TSB(r)</string>
     <string id="restHr">RHR</string>
     <string id="date">Date</string>
+    <string id="weight">Weight</string>
 
 	<string id="phoneConnection">Phone Connection\nRequired</string>
 	<string id="openPhone">Open the\nConnect Mobile App</string>

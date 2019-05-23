@@ -20,8 +20,9 @@ class FieldsConverter {
 	    var dateField = new DateField(result);
 	    var tsbField = new TsbField(ctlField, atlField);
 	    var tsbrField = new TsbrField(ctlField, atlField);
+	    var weightField = new WeightField(result);
 
-		var fields = [atlField, ctlField, tscoreField, restHrField, dateField, tsbField, tsbrField];
+		var fields = [atlField, ctlField, tscoreField, restHrField, dateField, tsbField, tsbrField, weightField];
 
 		var dailyLoadFields = [];
         for(var i = 0; i < fields.size(); i++) {
